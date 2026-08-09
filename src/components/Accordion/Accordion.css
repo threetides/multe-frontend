@@ -1,0 +1,50 @@
+.accordion {
+  width: fit-content;
+  max-width: fit-content;
+}
+
+.accordion__item {
+  border: 1px solid var(--color-ui-element-border);
+
+  &[data-disabled] {
+    opacity: 0.5;
+  }
+}
+
+.accordion__trigger {
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: var(--font-size-md);
+  padding: var(--space-xs);
+
+  &:hover:not([data-disabled]) {
+    background-color: var(--color-hovered-ui-element-background);
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    &[data-disabled] {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.accordion__panel {
+  height: var(--accordion-panel-height);
+  overflow: hidden;
+  transition: height 0.25s;
+  color: var(--color-low-contrast-text);
+}
+
+.accordion__panel[data-starting-style],
+.accordion__panel[data-ending-style] {
+  height: 0;
+}
+
+/* Padding lives on an inner wrapper so it doesn't fight the height:0 collapse */
+.accordion__panel-content {
+  padding: var(--space-xs);
+}

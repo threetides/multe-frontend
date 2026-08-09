@@ -1,0 +1,92 @@
+/* Use a more-intuitive box-sizing model. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding from everything. */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Allow percentage-based heights in the application. */
+html {
+  /* 2025 Feature: Allow animating to 'auto' height/width */
+  interpolate-size: allow-keywords;
+}
+
+/* Improve text rendering and base height */
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Improve media defaults.
+   Images should never overflow their container. */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Inherit fonts for form controls.
+   By default, buttons/inputs use the ugly UA font. This fixes that. */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Avoid text overflows. */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Create a root stacking context.
+   This prevents z-index wars with portals/modals. */
+#root,
+.root,
+#__next {
+  isolation: isolate;
+}
+
+/* Modern Text Wrapping (Progressive Enhancement) */
+p {
+  /* Prevents "orphans" (single words on the last line) */
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /* Balances the text block for headers (like a newspaper headline) */
+  text-wrap: balance;
+}
+
+/* Remove text decoration from links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove list style from links */
+li {
+  list-style: none;
+}

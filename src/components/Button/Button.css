@@ -1,0 +1,63 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: none;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+
+  &[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* Variants */
+
+.button--solid {
+  background-color: var(--color-accent-ui-background);
+  /* Solid backgrounds are mid-tone in both themes, so the text stays white */
+  color: white;
+
+  &:hover:not([data-disabled]) {
+    background-color: var(--color-accent-hovered-ui-background);
+  }
+}
+
+.button--outline {
+  border-color: var(--color-ui-element-border);
+  color: var(--color-high-contrast-text);
+
+  &:hover:not([data-disabled]) {
+    border-color: var(--color-hovered-ui-element-border);
+    background-color: var(--color-hovered-ui-element-background);
+  }
+}
+
+.button--ghost {
+  color: var(--color-high-contrast-text);
+
+  &:hover:not([data-disabled]) {
+    background-color: var(--color-hovered-ui-element-background);
+  }
+}
+
+/* Sizes */
+
+.button--sm {
+  padding: var(--space-2xs) var(--space-xs);
+  font-size: var(--font-size-sm);
+}
+
+.button--md {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-md);
+}
+
+.button--lg {
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-lg);
+}

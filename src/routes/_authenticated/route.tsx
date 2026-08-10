@@ -7,7 +7,7 @@ import { getDefaultStore, useAtomValue } from "jotai"
 export const Route = createFileRoute("/_authenticated")({
   component: RouteComponent,
   beforeLoad: async () => {
-    const response = await fetch("http://localhost:8080/api/auth/session", {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/session`, {
       method: "GET",
       credentials: "include"
     })
@@ -28,7 +28,7 @@ function RouteComponent() {
   const user = useAtomValue(userAtom)
 
   const testAPI = async () => {
-    const response = await fetch("http://localhost:8080/api/test", {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/test`, {
       method: "GET",
       credentials: "include"
     })
@@ -37,7 +37,7 @@ function RouteComponent() {
   }
 
   const getSession = async () => {
-    const response = await fetch("http://localhost:8080/api/auth/session", {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/session`, {
       method: "GET",
       credentials: "include"
     })
@@ -46,7 +46,7 @@ function RouteComponent() {
   }
 
   const logout = async () => {
-    const response = await fetch("http://localhost:8080/api/auth/logout", {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, {
       method: "POST",
       credentials: "include"
     })

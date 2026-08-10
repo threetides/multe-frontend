@@ -59,6 +59,7 @@ function RouteComponent() {
     return (
       <div>
         <nav>
+          <img src="/src/assets/cloudberry.svg" alt="" />
           <Button variant="outline" onClick={testAPI}>
             Test API
           </Button>

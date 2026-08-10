@@ -26,3 +26,13 @@ body {
   font-family: "PlusJakartaSans", system-ui, sans-serif;
   color: var(--color-high-contrast-text);
 }
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+
+  img {
+    height: var(--font-size-4xl);
+  }
+}

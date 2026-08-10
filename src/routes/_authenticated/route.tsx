@@ -1,3 +1,4 @@
+import cloudberry from "@/assets/cloudberry.svg"
 import { Button } from "@/components/Button/Button"
 import { userAtom } from "@/shared/atoms"
 import type { authResponse } from "@/shared/types"
@@ -59,7 +60,7 @@ function RouteComponent() {
     return (
       <div>
         <nav>
-          <img src="/src/assets/cloudberry.svg" alt="" />
+          <img src={cloudberry} alt="" />
           <Button variant="outline" onClick={testAPI}>
             Test API
           </Button>

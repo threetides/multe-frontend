@@ -1,32 +1,54 @@
-# React + TypeScript + Vite
+# multe_frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+The frontend of multe, the threetides studio's app for personal collections,
+deployed at [multe.app](https://multe.app).
 
-Currently, two official plugins are available:
+multe lets you build collections of the things you own — discs, hiking gear,
+gym equipment, books. Custom fields are defined per collection, so every item
+in it shares the same fields (speed/glide/turn/fade for discs, weight and
+category for hiking gear) on top of standard ones like price, location, and
+date bought. Each collection tracks totals such as its number of items and
+total price — kept visibly distinct for owned and wishlisted items. Items in
+any collection can be wishlisted: a wishlisted item shows that state in its
+collection and appears on a global wishlist across all collections, and when
+bought it transitions to owned in place — filling in price and date bought at
+that moment — rather than being re-added. The core of the app is item
+management and wishlists; further out, wishlists may become shareable with
+others (for birthdays and christmases) and the web app may be joined by a
+native one.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Development
 
-## React Compiler
+multe_frontend uses [Bun](https://bun.sh) as its package manager. Clone the
+repo, install dependencies, and start the dev server:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+bun install
+bun run dev      # serves the app at http://localhost:5173
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+The app expects the backend's URL in `.env` as `VITE_BACKEND_URL`.
+
+Other scripts:
+
+```sh
+bun run build    # format, lint, type-check, and build into dist/
+bun run preview  # preview the production build locally
+bun run check    # format + lint + type-check
+```
+
+## Project structure
+
+```
+src/
+├── components/   UI components built on Base UI primitives
+├── routes/       file-based routes (TanStack Router), split into
+│                 _authenticated and _unauthenticated groups
+├── shared/       app-wide state (jotai atoms) and types
+├── styles/       reset, design tokens, and global styles
+└── assets/       fonts and svgs
+```
+
+## License
+
+See [LICENSE](LICENSE).

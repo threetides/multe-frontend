@@ -9,4 +9,18 @@ export interface Session {
   name: string
   emailVerified: boolean
   createdAt: Date
+  updatedAt: Date
+}
+
+export interface Item {
+  id: string
+  collectionID: string
+  name: string
+  status: "owned" | "wish"
+  price: number
+  dateBought: Date
+  location: string
+  custom: { field: string; value: unknown }[]
+  createdAt: Date
+  updatedAt: Date
 }

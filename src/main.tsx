@@ -1,10 +1,9 @@
+import { routeTree } from "@/routeTree.gen"
+import { createRouter, RouterProvider } from "@tanstack/react-router"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-import { createRouter, RouterProvider } from "@tanstack/react-router"
-import { routeTree } from "@/routeTree.gen"
-import "@/styles/index.css"
-import "@/styles/tokens.css"
-import "@/styles/reset.css"
+import { Button } from "@/components/ui/button"
+import "@/index.css"
 
 const router = createRouter({ routeTree })
 
@@ -17,5 +16,6 @@ declare module "@tanstack/react-router" {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RouterProvider router={router} />
+    <Button variant="outline">Test me</Button>
   </StrictMode>
 )

@@ -2,9 +2,10 @@ import { routeTree } from "@/routeTree.gen"
 import { createRouter, RouterProvider } from "@tanstack/react-router"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-import { Button } from "@/components/ui/button"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import "@/index.css"
 
+const queryClient = new QueryClient()
 const router = createRouter({ routeTree })
 
 declare module "@tanstack/react-router" {
@@ -15,7 +16,8 @@ declare module "@tanstack/react-router" {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
-    <Button variant="outline">Test me</Button>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </StrictMode>
 )

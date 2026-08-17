@@ -96,7 +96,7 @@ export const NewCollection: FC = () => {
       <Field>
         <FieldLabel>Name</FieldLabel>
         <Input placeholder="e.g. Vinyl records" {...register("name")} maxLength={255} />
-        {errors.name && <FieldError>{errors.name.message}</FieldError>}
+        {errors.name && <FieldError className="text-xs">{errors.name.message}</FieldError>}
       </Field>
       <Field>
         <FieldLabel>Icon</FieldLabel>
@@ -130,7 +130,7 @@ export const NewCollection: FC = () => {
             </Combobox>
           )}
         />
-        {errors.emoji && <FieldError>{errors.emoji.message}</FieldError>}
+        {errors.emoji && <FieldError className="text-xs">{errors.emoji.message}</FieldError>}
       </Field>
       <Field>
         <FieldLabel>Custom fields</FieldLabel>
@@ -181,7 +181,9 @@ export const NewCollection: FC = () => {
                 </Button>
               </div>
               {errors.collectionFields?.[index]?.label && (
-                <FieldError>{errors.collectionFields?.[index]?.label.message}</FieldError>
+                <FieldError className="text-xs">
+                  {errors.collectionFields?.[index]?.label.message}
+                </FieldError>
               )}
             </div>
           )
@@ -189,7 +191,7 @@ export const NewCollection: FC = () => {
 
         <Button
           variant="outline"
-          className="border-dashed w-full"
+          className="border-dashed w-full bg-transparent!"
           onClick={() => append({ label: "", type: "text" })}
         >
           <Plus data-icon="inline-start" />

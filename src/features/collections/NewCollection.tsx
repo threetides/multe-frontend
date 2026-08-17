@@ -24,6 +24,11 @@ import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { collectionSchema, type CollectionSchemaType } from "@/features/collections/validation"
 import useFormPersist from "react-hook-form-persist"
+import { useMutation } from "@tanstack/react-query"
+import type { Response } from "@/shared/types"
+import { Spinner } from "@/components/ui/spinner"
+import { useNavigate } from "@tanstack/react-router"
+import { toast } from "@/components/ui/toast"
 
 type Emoji = {
   label: string
@@ -53,8 +58,32 @@ export const NewCollection: FC = () => {
     setValue
   })
 
+  const navigate = useNavigate()
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (col: CollectionSchemaType) => {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/collection`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify(col)
+      })
+      const data: Response<string> = await res.json()
+      if (res.status === 201) {
+        await navigate({ to: "/collection/$collectionID", params: { collectionID: data.data } })
+        sessionStorage.removeItem("newCollection")
+      }
+    },
+    onError: (error) => {
+      toast.add({
+        title: "An error occured",
+        description: error.message,
+        type: "error"
+      })
+    }
+  })
+
   const onSubmit = (data: CollectionSchemaType) => {
-    console.log(data)
+    mutate(data)
   }
 
   const { fields, append, remove } = useFieldArray({
@@ -167,7 +196,10 @@ export const NewCollection: FC = () => {
           Add field
         </Button>
       </Field>
-      <Button type="submit">Create collection</Button>
+      <Button type="submit" disabled={isPending}>
+        {isPending && <Spinner data-icon="inline-start" />}
+        Create collection
+      </Button>
     </form>
   )
 }

@@ -13,6 +13,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as UnauthenticatedRouteRouteImport } from './routes/_unauthenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as UnauthenticatedSignInIndexRouteImport } from './routes/_unauthenticated/sign-in/index'
+import { Route as AuthenticatedCollectionNewIndexRouteImport } from './routes/_authenticated/collection/new/index'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -33,14 +34,22 @@ const UnauthenticatedSignInIndexRoute =
     path: '/sign-in/',
     getParentRoute: () => UnauthenticatedRouteRoute,
   } as any)
+const AuthenticatedCollectionNewIndexRoute =
+  AuthenticatedCollectionNewIndexRouteImport.update({
+    id: '/collection/new/',
+    path: '/collection/new/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/sign-in/': typeof UnauthenticatedSignInIndexRoute
+  '/collection/new/': typeof AuthenticatedCollectionNewIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/sign-in': typeof UnauthenticatedSignInIndexRoute
+  '/collection/new': typeof AuthenticatedCollectionNewIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -48,18 +57,20 @@ export interface FileRoutesById {
   '/_unauthenticated': typeof UnauthenticatedRouteRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_unauthenticated/sign-in/': typeof UnauthenticatedSignInIndexRoute
+  '/_authenticated/collection/new/': typeof AuthenticatedCollectionNewIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign-in/'
+  fullPaths: '/' | '/sign-in/' | '/collection/new/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign-in'
+  to: '/' | '/sign-in' | '/collection/new'
   id:
     | '__root__'
     | '/_authenticated'
     | '/_unauthenticated'
     | '/_authenticated/'
     | '/_unauthenticated/sign-in/'
+    | '/_authenticated/collection/new/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -97,15 +108,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthenticatedSignInIndexRouteImport
       parentRoute: typeof UnauthenticatedRouteRoute
     }
+    '/_authenticated/collection/new/': {
+      id: '/_authenticated/collection/new/'
+      path: '/collection/new'
+      fullPath: '/collection/new/'
+      preLoaderRoute: typeof AuthenticatedCollectionNewIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedCollectionNewIndexRoute: typeof AuthenticatedCollectionNewIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedCollectionNewIndexRoute: AuthenticatedCollectionNewIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

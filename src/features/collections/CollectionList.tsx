@@ -1,5 +1,8 @@
+import { Button } from "@/components/ui/button"
 import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item"
 import type { Collection, Item as ItemType } from "@/shared/types"
+import { Link } from "@tanstack/react-router"
+import { CirclePlus } from "lucide-react"
 import type { FC } from "react"
 
 interface CollectionListProps {
@@ -50,6 +53,12 @@ export const CollectionList: FC<CollectionListProps> = ({ collections, items }) 
           </Item>
         )
       })}
+      <Link to="/collection/new">
+        <Button variant="outline" className="border-dashed w-full">
+          <CirclePlus data-icon="inline-start" />
+          New collection
+        </Button>
+      </Link>
     </div>
   )
 }

@@ -46,7 +46,9 @@ export const TopbarMobile: FC = () => {
   return (
     <nav className="p-4 flex flex-col gap-2 items-start">
       <div className="flex items-center justify-between w-full">
-        <img src={logodark} alt="Multe logo" className="h-10" />
+        <Link to="/">
+          <img src={logodark} alt="Multe logo" className="h-10" />
+        </Link>
         <Drawer>
           <DrawerTrigger
             render={

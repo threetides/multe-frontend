@@ -11,7 +11,7 @@ export const Route = createFileRoute("/_authenticated")({
 function RouteComponent() {
   const navigate = useNavigate()
 
-  const { isPending, error, data } = useQuery({
+  const { isPending, error } = useQuery({
     queryKey: ["authCheck"],
     queryFn: async () => {
       const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/session`, {

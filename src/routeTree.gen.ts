@@ -13,6 +13,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as UnauthenticatedRouteRouteImport } from './routes/_unauthenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as UnauthenticatedSignInIndexRouteImport } from './routes/_unauthenticated/sign-in/index'
+import { Route as AuthenticatedCollectionCollectionIDIndexRouteImport } from './routes/_authenticated/collection/$collectionID/index'
 import { Route as AuthenticatedCollectionNewIndexRouteImport } from './routes/_authenticated/collection/new/index'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -34,6 +35,12 @@ const UnauthenticatedSignInIndexRoute =
     path: '/sign-in/',
     getParentRoute: () => UnauthenticatedRouteRoute,
   } as any)
+const AuthenticatedCollectionCollectionIDIndexRoute =
+  AuthenticatedCollectionCollectionIDIndexRouteImport.update({
+    id: '/collection/$collectionID/',
+    path: '/collection/$collectionID/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedCollectionNewIndexRoute =
   AuthenticatedCollectionNewIndexRouteImport.update({
     id: '/collection/new/',
@@ -44,11 +51,13 @@ const AuthenticatedCollectionNewIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/sign-in/': typeof UnauthenticatedSignInIndexRoute
+  '/collection/$collectionID/': typeof AuthenticatedCollectionCollectionIDIndexRoute
   '/collection/new/': typeof AuthenticatedCollectionNewIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/sign-in': typeof UnauthenticatedSignInIndexRoute
+  '/collection/$collectionID': typeof AuthenticatedCollectionCollectionIDIndexRoute
   '/collection/new': typeof AuthenticatedCollectionNewIndexRoute
 }
 export interface FileRoutesById {
@@ -57,19 +66,22 @@ export interface FileRoutesById {
   '/_unauthenticated': typeof UnauthenticatedRouteRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_unauthenticated/sign-in/': typeof UnauthenticatedSignInIndexRoute
+  '/_authenticated/collection/$collectionID/': typeof AuthenticatedCollectionCollectionIDIndexRoute
   '/_authenticated/collection/new/': typeof AuthenticatedCollectionNewIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign-in/' | '/collection/new/'
+  fullPaths:
+    '/' | '/sign-in/' | '/collection/$collectionID/' | '/collection/new/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign-in' | '/collection/new'
+  to: '/' | '/sign-in' | '/collection/$collectionID' | '/collection/new'
   id:
     | '__root__'
     | '/_authenticated'
     | '/_unauthenticated'
     | '/_authenticated/'
     | '/_unauthenticated/sign-in/'
+    | '/_authenticated/collection/$collectionID/'
     | '/_authenticated/collection/new/'
   fileRoutesById: FileRoutesById
 }
@@ -108,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthenticatedSignInIndexRouteImport
       parentRoute: typeof UnauthenticatedRouteRoute
     }
+    '/_authenticated/collection/$collectionID/': {
+      id: '/_authenticated/collection/$collectionID/'
+      path: '/collection/$collectionID'
+      fullPath: '/collection/$collectionID/'
+      preLoaderRoute: typeof AuthenticatedCollectionCollectionIDIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/collection/new/': {
       id: '/_authenticated/collection/new/'
       path: '/collection/new'
@@ -120,11 +139,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedCollectionCollectionIDIndexRoute: typeof AuthenticatedCollectionCollectionIDIndexRoute
   AuthenticatedCollectionNewIndexRoute: typeof AuthenticatedCollectionNewIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedCollectionCollectionIDIndexRoute:
+    AuthenticatedCollectionCollectionIDIndexRoute,
   AuthenticatedCollectionNewIndexRoute: AuthenticatedCollectionNewIndexRoute,
 }
 

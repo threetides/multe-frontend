@@ -37,20 +37,22 @@ export const CollectionList: FC<CollectionListProps> = ({ collections, items }) 
         }
 
         return (
-          <Item variant="outline" key={collection.id} className="gap-4">
-            <ItemMedia className="bg-muted text-3xl aspect-square size-12 rounded-sm self-center!">
-              {collection.emoji}
-            </ItemMedia>
-            <ItemContent className="flex-col">
-              <ItemTitle>{collection.name}</ItemTitle>
-              <ItemDescription className="flex text-xs items-center">
-                {itemsOwned} owned · {priceOwned} kr
-              </ItemDescription>
-              <ItemDescription className="flex text-xs items-center text-primary-foreground">
-                {itemsWishlisted} wishlisted · ~{priceWishlisted} kr
-              </ItemDescription>
-            </ItemContent>
-          </Item>
+          <Link to="/collection/$collectionID" params={{ collectionID: collection.id }}>
+            <Item variant="outline" key={collection.id} className="gap-4">
+              <ItemMedia className="bg-muted text-3xl aspect-square size-12 rounded-sm self-center!">
+                {collection.emoji}
+              </ItemMedia>
+              <ItemContent className="flex-col">
+                <ItemTitle>{collection.name}</ItemTitle>
+                <ItemDescription className="flex text-xs items-center">
+                  {itemsOwned} owned · {priceOwned} kr
+                </ItemDescription>
+                <ItemDescription className="flex text-xs items-center text-primary-foreground">
+                  {itemsWishlisted} wishlisted · ~{priceWishlisted} kr
+                </ItemDescription>
+              </ItemContent>
+            </Item>
+          </Link>
         )
       })}
       <Link to="/collection/new">

@@ -189,14 +189,16 @@ export const NewCollection: FC = () => {
           )
         })}
 
-        <Button
-          variant="outline"
-          className="border-dashed w-full bg-transparent!"
-          onClick={() => append({ label: "", type: "text" })}
-        >
-          <Plus data-icon="inline-start" />
-          Add field
-        </Button>
+        {watch("collectionFields") && watch("collectionFields").length < 10 && (
+          <Button
+            variant="outline"
+            className="border-dashed w-full bg-transparent!"
+            onClick={() => append({ label: "", type: "text" })}
+          >
+            <Plus data-icon="inline-start" />
+            Add field
+          </Button>
+        )}
       </Field>
       <Button type="submit" disabled={isPending}>
         {isPending && <Spinner data-icon="inline-start" />}

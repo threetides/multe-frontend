@@ -25,17 +25,12 @@ function RouteComponent() {
     }
   })
 
-  if (isPending) return "Loading..."
-
   if (error) return "An error has occurred: " + error.message
 
-  if (data.data)
-    return (
-      <>
-        <TopbarMobile />
-        <main className="p-4">
-          <Outlet />
-        </main>
-      </>
-    )
+  return (
+    <>
+      <TopbarMobile />
+      <main className="p-4">{!isPending && <Outlet />}</main>
+    </>
+  )
 }

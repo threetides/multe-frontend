@@ -35,11 +35,17 @@ export const TopbarMobile: FC = () => {
     <nav className="p-4 flex flex-col gap-2 items-start">
       <img src={logodark} alt="Multe logo" className="h-10" />
       {loading ? (
-        <Skeleton className="h-4 w-40" />
+        <Skeleton>
+          <div className="flex text-sm text-muted-foreground opacity-0">
+            <p>100 owned</p>
+            <Dot className="text-primary" />
+            <p>1000 kr owned</p>
+          </div>
+        </Skeleton>
       ) : (
         <div className="flex text-sm text-muted-foreground">
           <p>{itemsOwned} owned</p>
-          <Dot className="text-accent-foreground" />
+          <Dot className="text-primary-foreground" />
           <p>{valueOwned} kr owned</p>
         </div>
       )}

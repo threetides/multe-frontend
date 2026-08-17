@@ -1,8 +1,7 @@
-import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item"
+import { CollectionList } from "@/features/collections/CollectionList"
 import type { Collection, Item as ItemType, Response } from "@/shared/types"
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { Dot } from "lucide-react"
 
 export const Route = createFileRoute("/_authenticated/")({
   component: RouteComponent
@@ -28,33 +27,9 @@ function RouteComponent() {
   if (!isPending)
     return (
       <div className="flex flex-col gap-2">
-        {data?.collections.data.map((collection) => {
-          return (
-            <Item variant="outline" key={collection.id}>
-              <ItemMedia className="radius-md bg-muted text-3xl aspect-square size-12 rounded-sm">
-                {collection.emoji}
-              </ItemMedia>
-              <ItemContent>
-                <ItemTitle>{collection.name}</ItemTitle>
-                <ItemDescription className="flex">
-                  {
-                    data.items.data.filter((item) => {
-                      return item.collectionID === collection.id && item.status === "owned"
-                    }).length
-                  }{" "}
-                  owned
-                  <Dot />
-                  {
-                    data.items.data.filter((item) => {
-                      return item.collectionID === collection.id && item.status === "wish"
-                    }).length
-                  }{" "}
-                  wishlisted
-                </ItemDescription>
-              </ItemContent>
-            </Item>
-          )
-        })}
+        {data?.collections.data && data.items.data && (
+          <CollectionList collections={data?.collections.data} items={data?.items.data} />
+        )}
       </div>
     )
 }

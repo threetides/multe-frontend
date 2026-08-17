@@ -2,8 +2,20 @@ import { useState, type FC } from "react"
 import logodark from "@/assets/logo-dark.svg"
 import { useQuery } from "@tanstack/react-query"
 import type { Item, Response } from "@/shared/types"
-import { Dot } from "lucide-react"
+import { Dot, Settings } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Button } from "@/components/ui/button"
+import { Link } from "@tanstack/react-router"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger
+} from "@/components/ui/drawer"
 
 export const TopbarMobile: FC = () => {
   const [itemsOwned, setItemsOwned] = useState<number>(0)
@@ -33,7 +45,28 @@ export const TopbarMobile: FC = () => {
 
   return (
     <nav className="p-4 flex flex-col gap-2 items-start">
-      <img src={logodark} alt="Multe logo" className="h-10" />
+      <div className="flex items-center justify-between w-full">
+        <img src={logodark} alt="Multe logo" className="h-10" />
+        <Drawer>
+          <DrawerTrigger
+            render={
+              <Button variant="outline" size="icon" className="rounded-full">
+                <Settings />
+              </Button>
+            }
+          />
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Settings</DrawerTitle>
+            </DrawerHeader>
+            <div className="p-4">{/* Content here */}</div>
+            <DrawerFooter>
+              <Button>Save</Button>
+              <DrawerClose render={<Button variant="outline" />}>Cancel</DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </div>
       {loading ? (
         <Skeleton>
           <div className="flex text-sm text-muted-foreground opacity-0">

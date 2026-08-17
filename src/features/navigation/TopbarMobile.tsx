@@ -11,7 +11,7 @@ export const TopbarMobile: FC = () => {
   const [loading, setLoading] = useState<boolean>(true)
 
   useQuery({
-    queryKey: ["authCheck"],
+    queryKey: ["getItemsTopbarMobile"],
     queryFn: async () => {
       setLoading(true)
       setItemsOwned(0)

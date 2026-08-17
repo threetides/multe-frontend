@@ -12,6 +12,15 @@ export interface Session {
   updatedAt: Date
 }
 
+export interface Collection {
+  id: string
+  userID: string
+  name: string
+  emoji: string
+  createdAt: Date
+  updatedAt: Date
+}
+
 export interface Item {
   id: string
   collectionID: string

@@ -10,14 +10,14 @@ export const BottombarMobile: FC = () => {
         className="flex flex-col flex-1 justify-center items-center text-muted-foreground data-[status=active]:text-primary-foreground"
       >
         <Boxes />
-        <p className="text-sm">Collections</p>
+        <p className="text-xs">Collections</p>
       </Link>
       <Link
         to="/wishlist"
         className="flex flex-col flex-1 justify-center items-center text-muted-foreground data-[status=active]:text-primary-foreground"
       >
         <Bookmark />
-        <p className="text-sm">Wishlist</p>
+        <p className="text-xs">Wishlist</p>
       </Link>
     </div>
   )

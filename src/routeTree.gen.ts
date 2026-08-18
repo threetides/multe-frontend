@@ -16,6 +16,7 @@ import { Route as AuthenticatedWishlistIndexRouteImport } from './routes/_authen
 import { Route as UnauthenticatedSignInIndexRouteImport } from './routes/_unauthenticated/sign-in/index'
 import { Route as AuthenticatedCollectionCollectionIDIndexRouteImport } from './routes/_authenticated/collection/$collectionID/index'
 import { Route as AuthenticatedCollectionNewIndexRouteImport } from './routes/_authenticated/collection/new/index'
+import { Route as AuthenticatedCollectionCollectionIDNewIndexRouteImport } from './routes/_authenticated/collection/$collectionID/new/index'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -54,6 +55,12 @@ const AuthenticatedCollectionNewIndexRoute =
     path: '/collection/new/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCollectionCollectionIDNewIndexRoute =
+  AuthenticatedCollectionCollectionIDNewIndexRouteImport.update({
+    id: '/collection/$collectionID/new/',
+    path: '/collection/$collectionID/new/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -61,6 +68,7 @@ export interface FileRoutesByFullPath {
   '/sign-in/': typeof UnauthenticatedSignInIndexRoute
   '/collection/$collectionID/': typeof AuthenticatedCollectionCollectionIDIndexRoute
   '/collection/new/': typeof AuthenticatedCollectionNewIndexRoute
+  '/collection/$collectionID/new/': typeof AuthenticatedCollectionCollectionIDNewIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
@@ -68,6 +76,7 @@ export interface FileRoutesByTo {
   '/sign-in': typeof UnauthenticatedSignInIndexRoute
   '/collection/$collectionID': typeof AuthenticatedCollectionCollectionIDIndexRoute
   '/collection/new': typeof AuthenticatedCollectionNewIndexRoute
+  '/collection/$collectionID/new': typeof AuthenticatedCollectionCollectionIDNewIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -78,6 +87,7 @@ export interface FileRoutesById {
   '/_unauthenticated/sign-in/': typeof UnauthenticatedSignInIndexRoute
   '/_authenticated/collection/$collectionID/': typeof AuthenticatedCollectionCollectionIDIndexRoute
   '/_authenticated/collection/new/': typeof AuthenticatedCollectionNewIndexRoute
+  '/_authenticated/collection/$collectionID/new/': typeof AuthenticatedCollectionCollectionIDNewIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/sign-in/'
     | '/collection/$collectionID/'
     | '/collection/new/'
+    | '/collection/$collectionID/new/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/collection/$collectionID'
     | '/collection/new'
+    | '/collection/$collectionID/new'
   id:
     | '__root__'
     | '/_authenticated'
@@ -103,6 +115,7 @@ export interface FileRouteTypes {
     | '/_unauthenticated/sign-in/'
     | '/_authenticated/collection/$collectionID/'
     | '/_authenticated/collection/new/'
+    | '/_authenticated/collection/$collectionID/new/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCollectionNewIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/collection/$collectionID/new/': {
+      id: '/_authenticated/collection/$collectionID/new/'
+      path: '/collection/$collectionID/new'
+      fullPath: '/collection/$collectionID/new/'
+      preLoaderRoute: typeof AuthenticatedCollectionCollectionIDNewIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -169,6 +189,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedWishlistIndexRoute: typeof AuthenticatedWishlistIndexRoute
   AuthenticatedCollectionCollectionIDIndexRoute: typeof AuthenticatedCollectionCollectionIDIndexRoute
   AuthenticatedCollectionNewIndexRoute: typeof AuthenticatedCollectionNewIndexRoute
+  AuthenticatedCollectionCollectionIDNewIndexRoute: typeof AuthenticatedCollectionCollectionIDNewIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -177,6 +198,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCollectionCollectionIDIndexRoute:
     AuthenticatedCollectionCollectionIDIndexRoute,
   AuthenticatedCollectionNewIndexRoute: AuthenticatedCollectionNewIndexRoute,
+  AuthenticatedCollectionCollectionIDNewIndexRoute:
+    AuthenticatedCollectionCollectionIDNewIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

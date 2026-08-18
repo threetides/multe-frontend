@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as UnauthenticatedRouteRouteImport } from './routes/_unauthenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedWishlistIndexRouteImport } from './routes/_authenticated/wishlist/index'
 import { Route as UnauthenticatedSignInIndexRouteImport } from './routes/_unauthenticated/sign-in/index'
 import { Route as AuthenticatedCollectionCollectionIDIndexRouteImport } from './routes/_authenticated/collection/$collectionID/index'
 import { Route as AuthenticatedCollectionNewIndexRouteImport } from './routes/_authenticated/collection/new/index'
@@ -29,6 +30,12 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedWishlistIndexRoute =
+  AuthenticatedWishlistIndexRouteImport.update({
+    id: '/wishlist/',
+    path: '/wishlist/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const UnauthenticatedSignInIndexRoute =
   UnauthenticatedSignInIndexRouteImport.update({
     id: '/sign-in/',
@@ -50,12 +57,14 @@ const AuthenticatedCollectionNewIndexRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
+  '/wishlist/': typeof AuthenticatedWishlistIndexRoute
   '/sign-in/': typeof UnauthenticatedSignInIndexRoute
   '/collection/$collectionID/': typeof AuthenticatedCollectionCollectionIDIndexRoute
   '/collection/new/': typeof AuthenticatedCollectionNewIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
+  '/wishlist': typeof AuthenticatedWishlistIndexRoute
   '/sign-in': typeof UnauthenticatedSignInIndexRoute
   '/collection/$collectionID': typeof AuthenticatedCollectionCollectionIDIndexRoute
   '/collection/new': typeof AuthenticatedCollectionNewIndexRoute
@@ -65,6 +74,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_unauthenticated': typeof UnauthenticatedRouteRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/wishlist/': typeof AuthenticatedWishlistIndexRoute
   '/_unauthenticated/sign-in/': typeof UnauthenticatedSignInIndexRoute
   '/_authenticated/collection/$collectionID/': typeof AuthenticatedCollectionCollectionIDIndexRoute
   '/_authenticated/collection/new/': typeof AuthenticatedCollectionNewIndexRoute
@@ -72,14 +82,24 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/sign-in/' | '/collection/$collectionID/' | '/collection/new/'
+    | '/'
+    | '/wishlist/'
+    | '/sign-in/'
+    | '/collection/$collectionID/'
+    | '/collection/new/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign-in' | '/collection/$collectionID' | '/collection/new'
+  to:
+    | '/'
+    | '/wishlist'
+    | '/sign-in'
+    | '/collection/$collectionID'
+    | '/collection/new'
   id:
     | '__root__'
     | '/_authenticated'
     | '/_unauthenticated'
     | '/_authenticated/'
+    | '/_authenticated/wishlist/'
     | '/_unauthenticated/sign-in/'
     | '/_authenticated/collection/$collectionID/'
     | '/_authenticated/collection/new/'
@@ -113,6 +133,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/wishlist/': {
+      id: '/_authenticated/wishlist/'
+      path: '/wishlist'
+      fullPath: '/wishlist/'
+      preLoaderRoute: typeof AuthenticatedWishlistIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_unauthenticated/sign-in/': {
       id: '/_unauthenticated/sign-in/'
       path: '/sign-in'
@@ -139,12 +166,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedWishlistIndexRoute: typeof AuthenticatedWishlistIndexRoute
   AuthenticatedCollectionCollectionIDIndexRoute: typeof AuthenticatedCollectionCollectionIDIndexRoute
   AuthenticatedCollectionNewIndexRoute: typeof AuthenticatedCollectionNewIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedWishlistIndexRoute: AuthenticatedWishlistIndexRoute,
   AuthenticatedCollectionCollectionIDIndexRoute:
     AuthenticatedCollectionCollectionIDIndexRoute,
   AuthenticatedCollectionNewIndexRoute: AuthenticatedCollectionNewIndexRoute,

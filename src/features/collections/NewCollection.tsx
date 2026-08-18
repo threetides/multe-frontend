@@ -50,7 +50,8 @@ export const NewCollection: FC = () => {
     formState: { errors }
   } = useForm<CollectionSchemaType>({
     resolver: zodResolver(collectionSchema),
-    mode: "onTouched"
+    mode: "onTouched",
+    shouldUnregister: true
   })
 
   useFormPersist("newCollection", {
@@ -139,6 +140,7 @@ export const NewCollection: FC = () => {
           bought.
         </FieldDescription>
         {fields.map((field, index) => {
+          setValue(`collectionFields.${index}.position`, index)
           return (
             <div className="flex flex-col gap-2" key={field.id}>
               <div className="flex gap-2">
@@ -171,6 +173,13 @@ export const NewCollection: FC = () => {
                     </Select>
                   )}
                 />
+                {watch(`collectionFields.${index}.type`) === "number" && (
+                  <Input
+                    placeholder="e.g. kg"
+                    maxLength={255}
+                    {...register(`collectionFields.${index}.unit` as const)}
+                  />
+                )}
                 <Button
                   variant="ghost"
                   size="icon"
@@ -193,7 +202,7 @@ export const NewCollection: FC = () => {
           <Button
             variant="outline"
             className="border-dashed w-full bg-transparent!"
-            onClick={() => append({ label: "", type: "text" })}
+            onClick={() => append({ label: "", type: "text", unit: "", position: 0 })}
           >
             <Plus data-icon="inline-start" />
             Add field

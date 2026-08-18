@@ -18,7 +18,9 @@ export const collectionSchema = z.object({
         .trim()
         .nonempty("Label is required")
         .max(255, "Label must be 255 characters or fewer"),
-      type: z.enum(["text", "number"], "Select a type")
+      type: z.enum(["text", "number"], "Select a type"),
+      unit: z.string().trim().max(255, "Unit must be 255 characters or fewer"),
+      position: z.number()
     })
     .array()
 })

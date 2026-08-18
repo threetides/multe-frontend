@@ -1,3 +1,4 @@
+import { BottombarMobile } from "@/features/navigation/BottombarMobile"
 import { TopbarMobile } from "@/features/navigation/TopbarMobile"
 import type { Response, Session } from "@/shared/types"
 import { useQuery } from "@tanstack/react-query"
@@ -30,7 +31,8 @@ function RouteComponent() {
   return (
     <>
       <TopbarMobile />
-      <main className="p-4">{!isPending && <Outlet />}</main>
+      <main className="p-4 pb-20">{!isPending && <Outlet />}</main>
+      <BottombarMobile />
     </>
   )
 }

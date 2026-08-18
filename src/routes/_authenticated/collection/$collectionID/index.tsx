@@ -14,6 +14,8 @@ function RouteComponent() {
   const [valueOwned, setValueOwned] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(true)
 
+  console.log(itemsOwned, valueOwned, loading)
+
   const { collectionID } = Route.useParams()
 
   useQuery({

@@ -53,7 +53,7 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
   const navigate = useNavigate()
 
   const { data: collection } = useQuery({
-    queryKey: ["getCollection", collectionID],
+    queryKey: [`getCollection-${collectionID}`, collectionID],
     queryFn: async () => {
       const res = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/collection/${collectionID}`,

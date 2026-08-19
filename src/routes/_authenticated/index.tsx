@@ -6,19 +6,15 @@ import type { Collection, Response } from "@/shared/types"
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { CirclePlus } from "lucide-react"
-import { useState } from "react"
 
 export const Route = createFileRoute("/_authenticated/")({
   component: RouteComponent
 })
 
 function RouteComponent() {
-  const [loading, setLoading] = useState<boolean>(true)
-
-  const { data } = useQuery({
-    queryKey: ["getCollectionsAndItems"],
+  const { data, isPending } = useQuery({
+    queryKey: ["getCollectionsAndItemsHomepage"],
     queryFn: async () => {
-      setLoading(true)
       const collectionRes = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/collections`, {
         credentials: "include"
       })
@@ -43,12 +39,11 @@ function RouteComponent() {
         }
       }
 
-      setLoading(false)
       return { collections, itemsOwned, priceOwned, itemsWishlisted, priceWishlisted }
     }
   })
 
-  if (loading)
+  if (isPending)
     return (
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">
@@ -107,7 +102,7 @@ function RouteComponent() {
       </div>
     )
 
-  if (!loading)
+  if (!isPending)
     return (
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">

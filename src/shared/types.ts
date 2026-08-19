@@ -17,6 +17,20 @@ export interface Collection {
   userID: string
   name: string
   emoji: string
+  collectionFields: CollectionField[] | null
+  items: Item[] | null
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface CollectionField {
+  id: string
+  collectionID: string
+  key: string
+  label: string
+  type: "text" | "number"
+  unit: string
+  position: number
   createdAt: Date
   updatedAt: Date
 }
@@ -29,7 +43,7 @@ export interface Item {
   price: number
   dateBought: Date
   location: string
-  custom: { field: string; value: unknown }[]
+  custom: Record<string, unknown>
   createdAt: Date
   updatedAt: Date
 }

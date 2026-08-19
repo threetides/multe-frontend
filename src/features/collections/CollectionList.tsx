@@ -1,44 +1,48 @@
 import { Button } from "@/components/ui/button"
 import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item"
-import type { Collection, Item as ItemType } from "@/shared/types"
+import type { Collection } from "@/shared/types"
 import { Link } from "@tanstack/react-router"
 import { CirclePlus } from "lucide-react"
 import type { FC } from "react"
 
 interface CollectionListProps {
   collections: Collection[]
-  items: ItemType[]
 }
 
-export const CollectionList: FC<CollectionListProps> = ({ collections, items }) => {
+export const CollectionList: FC<CollectionListProps> = ({ collections }) => {
   return (
     <div className="grid auto-rows-fr gap-2">
       {collections.map((collection) => {
-        const itemsOwned = items.filter((item) => {
-          return item.collectionID === collection.id && item.status === "owned"
-        }).length
-
+        let itemsOwned = 0
         let priceOwned = 0
-
-        for (const item of items) {
-          if (item.collectionID === collection.id && item.status === "owned")
-            priceOwned = priceOwned + item.price
-        }
-
-        const itemsWishlisted = items.filter((item) => {
-          return item.collectionID === collection.id && item.status === "wish"
-        }).length
-
+        let itemsWishlisted = 0
         let priceWishlisted = 0
 
-        for (const item of items) {
-          if (item.collectionID === collection.id && item.status === "wish")
-            priceWishlisted = priceWishlisted + item.price
+        if (collection.items) {
+          itemsOwned = collection.items.length
+
+          for (const item of collection.items) {
+            if (item.collectionID === collection.id && item.status === "owned")
+              priceOwned = priceOwned + item.price
+          }
+
+          itemsWishlisted = collection.items.filter((item) => {
+            return item.collectionID === collection.id && item.status === "wish"
+          }).length
+
+          for (const item of collection.items) {
+            if (item.collectionID === collection.id && item.status === "wish")
+              priceWishlisted = priceWishlisted + item.price
+          }
         }
 
         return (
-          <Link to="/collection/$collectionID" params={{ collectionID: collection.id }}>
-            <Item variant="outline" key={collection.id} className="gap-4 h-full">
+          <Link
+            to="/collection/$collectionID"
+            params={{ collectionID: collection.id }}
+            key={collection.id}
+          >
+            <Item variant="outline" className="gap-4 h-full">
               <ItemMedia className="bg-muted text-3xl aspect-square size-12 rounded-sm self-center!">
                 {collection.emoji}
               </ItemMedia>

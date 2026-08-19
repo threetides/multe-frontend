@@ -153,48 +153,7 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
         />
         {errors.price && <FieldError className="text-xs">{errors.price.message}</FieldError>}
       </Field>
-      <Field>
-        <FieldLabel>Date bought</FieldLabel>
-        <Controller
-          control={control}
-          name="dateBought"
-          render={({ field }) => (
-            <Popover>
-              <PopoverTrigger
-                render={
-                  <Button
-                    variant="outline"
-                    data-empty={!field.value}
-                    className="justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
-                  />
-                }
-              >
-                <CalendarIcon />
-                {field.value ? format(parseISO(field.value), "PPP") : <span>Pick a date</span>}
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={field.value ? parseISO(field.value) : undefined}
-                  onSelect={(value) =>
-                    field.onChange(value ? format(value as Date, "yyyy-MM-dd") : undefined)
-                  }
-                  onDayBlur={field.onBlur}
-                />
-              </PopoverContent>
-            </Popover>
-          )}
-        />
-
-        {errors.dateBought && (
-          <FieldError className="text-xs">{errors.dateBought.message}</FieldError>
-        )}
-      </Field>
-      <Field>
-        <FieldLabel>Location</FieldLabel>
-        <Input placeholder="e.g. Garage" maxLength={255} {...register("location")} />
-        {errors.location && <FieldError className="text-xs">{errors.location.message}</FieldError>}
-      </Field>
+      {watch("status") === "owned" && <></>}
       <Separator />
       <h3>{collection?.name} custom fields</h3>
       {collection?.collectionFields.map((collectionField) => (
@@ -205,9 +164,10 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
           </FieldLabel>
           <Input
             type={collectionField.type === "number" ? "number" : "text"}
+            step="any"
             maxLength={255}
             {...register(
-              `custom.${collectionField.label}`,
+              `custom.${collectionField.key}`,
               collectionField.type === "number"
                 ? { setValueAs: (value) => (value === "" ? "" : Number(value)) }
                 : {}

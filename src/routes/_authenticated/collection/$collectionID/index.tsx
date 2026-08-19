@@ -77,6 +77,29 @@ function RouteComponent() {
             </Item>
           </Skeleton>
         </div>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <Skeleton key={index}>
+            <Item variant="outline" className="opacity-0">
+              <ItemContent className="flex gap-3">
+                <AspectRatio ratio={16 / 9}>
+                  <ItemMedia className="bg-card h-full rounded-sm border border-dashed text-3xl text-muted-foreground">
+                    N
+                  </ItemMedia>
+                </AspectRatio>
+                <div>
+                  <ItemTitle className="text-nowrap text-ellipsis">Name</ItemTitle>
+                  <ItemDescription className="text-nowrap text-ellipsis text-xs">
+                    Description
+                  </ItemDescription>
+                  <ItemDescription className="text-primary-foreground text-nowrap text-ellipsis">
+                    0 kr
+                  </ItemDescription>
+                </div>
+              </ItemContent>
+            </Item>
+          </Skeleton>
+        ))}
+
         <Skeleton>
           <Link
             to={"/collection/$collectionID/new"}
@@ -84,7 +107,10 @@ function RouteComponent() {
             disabled
             className="opacity-0"
           >
-            <Button variant="outline" className="border-dashed w-full h-full bg-transparent!">
+            <Button
+              variant="outline"
+              className="border-dashed w-full h-full bg-transparent! pt-2 pb-2"
+            >
               <CirclePlus data-icon="inline-start" />
               New item
             </Button>
@@ -117,7 +143,7 @@ function RouteComponent() {
           </ItemContent>
         </Item>
       </div>
-      <div className="grid auto-rows-fr gap-2">
+      <div className="flex flex-col gap-2">
         {data?.collection.items?.map((item) => {
           return (
             <Item variant="outline">
@@ -130,11 +156,11 @@ function RouteComponent() {
                 <div>
                   <ItemTitle className="text-nowrap text-ellipsis">{item.name}</ItemTitle>
                   <ItemDescription className="text-nowrap text-ellipsis text-xs">
-                    {data.collection.collectionFields?.map((cf) => {
+                    {data.collection.collectionFields?.map((cf, index) => {
                       return (
                         <>
                           {item.custom[cf.key] as string} {cf.unit.length > 0 ? cf.unit : null}{" "}
-                          ·{" "}
+                          {data.collection.items && index <= data.collection.items?.length && "· "}
                         </>
                       )
                     })}
@@ -157,7 +183,10 @@ function RouteComponent() {
           )
         })}
         <Link to={"/collection/$collectionID/new"} params={{ collectionID: collectionID }}>
-          <Button variant="outline" className="border-dashed w-full h-full bg-transparent!">
+          <Button
+            variant="outline"
+            className="border-dashed w-full h-full bg-transparent! pt-2 pb-2"
+          >
             <CirclePlus data-icon="inline-start" />
             New item
           </Button>

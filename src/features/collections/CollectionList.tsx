@@ -11,7 +11,7 @@ interface CollectionListProps {
 
 export const CollectionList: FC<CollectionListProps> = ({ collections }) => {
   return (
-    <div className="grid auto-rows-fr gap-2">
+    <div className="flex flex-col gap-2">
       {collections.map((collection) => {
         let itemsOwned = 0
         let priceOwned = 0
@@ -60,7 +60,7 @@ export const CollectionList: FC<CollectionListProps> = ({ collections }) => {
         )
       })}
       <Link to="/collection/new">
-        <Button variant="outline" className="border-dashed w-full h-full bg-transparent!">
+        <Button variant="outline" className="border-dashed w-full h-full bg-transparent! pt-2 pb-2">
           <CirclePlus data-icon="inline-start" />
           New collection
         </Button>

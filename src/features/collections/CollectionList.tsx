@@ -20,9 +20,12 @@ export const CollectionList: FC<CollectionListProps> = ({ collections }) => {
 
         if (collection.items) {
           for (const item of collection.items) {
-            if (item.collectionID === collection.id && item.status === "owned")
+            if (item.collectionID === collection.id && item.status === "owned") {
               itemsOwned = itemsOwned + 1
-            priceOwned = priceOwned + item.price
+            }
+            if (item.price) {
+              priceOwned = priceOwned + item.price
+            }
           }
 
           itemsWishlisted = collection.items.filter((item) => {
@@ -30,7 +33,7 @@ export const CollectionList: FC<CollectionListProps> = ({ collections }) => {
           }).length
 
           for (const item of collection.items) {
-            if (item.collectionID === collection.id && item.status === "wish")
+            if (item.collectionID === collection.id && item.status === "wish" && item.price)
               priceWishlisted = priceWishlisted + item.price
           }
         }

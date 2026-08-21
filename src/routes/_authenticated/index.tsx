@@ -30,10 +30,10 @@ function RouteComponent() {
           for (const item of collection.items) {
             if (item.status === "owned") {
               itemsOwned = itemsOwned + 1
-              priceOwned = priceOwned + item.price
+              if (item.price) priceOwned = priceOwned + item.price
             } else if (item.status === "wish") {
               itemsWishlisted = itemsWishlisted + 1
-              priceWishlisted = priceWishlisted + item.price
+              if (item.price) priceWishlisted = priceWishlisted + item.price
             }
           }
         }

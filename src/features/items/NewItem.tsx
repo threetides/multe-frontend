@@ -13,6 +13,7 @@ import { useNavigate } from "@tanstack/react-router"
 import { toast } from "@/components/ui/toast"
 import { Separator } from "@/components/ui/separator"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { queryClient } from "@/main"
 
 type CollectionField = {
   id: string
@@ -79,6 +80,7 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
         })
       })
       if (res.status === 201) {
+        queryClient.invalidateQueries({ queryKey: [`getItemsPerCollection-${collectionID}`] })
         await navigate({ to: "/collection/$collectionID", params: { collectionID } })
         sessionStorage.removeItem("newItem")
       }

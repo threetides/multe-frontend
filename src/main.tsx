@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Toaster } from "@/components/ui/toast"
 import "@/index.css"
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 const router = createRouter({ routeTree })
 
 declare module "@tanstack/react-router" {

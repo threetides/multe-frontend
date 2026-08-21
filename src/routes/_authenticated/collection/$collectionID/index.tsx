@@ -141,7 +141,7 @@ function RouteComponent() {
         <div className="flex flex-col gap-2">
           {data?.collection.items?.map((item) => {
             return (
-              <Item variant="outline">
+              <Item variant="outline" key={item.id}>
                 <ItemContent className="flex gap-3">
                   <AspectRatio ratio={16 / 9}>
                     <ItemMedia className="bg-card h-full rounded-sm border border-dashed text-3xl text-muted-foreground">
@@ -150,28 +150,36 @@ function RouteComponent() {
                   </AspectRatio>
                   <div>
                     <ItemTitle className="text-nowrap text-ellipsis">{item.name}</ItemTitle>
-                    <ItemDescription className="text-nowrap text-ellipsis text-xs">
+                    <div className="flex gap-0.5">
                       {data.collection.collectionFields?.map((cf, index) => {
                         return (
-                          <>
-                            {item.custom[cf.key] as string} {cf.unit.length > 0 ? cf.unit : null}{" "}
-                            {index < Object.entries(item.custom).length - 1 && " · "}
-                          </>
+                          <div key={index} className="flex gap-0.5">
+                            <ItemDescription className="text-nowrap text-ellipsis text-xs flex items-center justify-center">
+                              {item.custom[cf.key] as string} {cf.unit.length > 0 ? cf.unit : null}
+                            </ItemDescription>
+                            {index < Object.entries(item.custom).length - 1 && (
+                              <ItemDescription className="flex items-center justify-center">
+                                ·
+                              </ItemDescription>
+                            )}
+                          </div>
                         )
                       })}
-                    </ItemDescription>
-                    <ItemDescription className="text-primary-foreground text-nowrap text-ellipsis">
-                      {item.status === "owned" ? (
-                        <p>{item.price} kr</p>
-                      ) : (
-                        <div className="flex justify-between">
-                          <p className="text-primary">~{item.price} kr</p>{" "}
-                          <div className="bg-primary/5 border border-primary/20 rounded-full pl-2 pr-2 pt-1 pb-1 text-xs text-primary">
-                            Wish
-                          </div>
-                        </div>
-                      )}
-                    </ItemDescription>
+                    </div>
+                    <div className="flex justify-between">
+                      <div className="text-primary-foreground text-nowrap text-ellipsis">
+                        {item.status === "owned" ? (
+                          <ItemDescription>{item.price} kr</ItemDescription>
+                        ) : (
+                          <ItemDescription className="text-primary">
+                            ~{item.price} kr
+                          </ItemDescription>
+                        )}
+                      </div>
+                      <ItemDescription className="bg-primary/5 border border-primary/20 rounded-full pl-2 pr-2 pt-1 pb-1 text-xs text-primary">
+                        Wish
+                      </ItemDescription>
+                    </div>
                   </div>
                 </ItemContent>
               </Item>

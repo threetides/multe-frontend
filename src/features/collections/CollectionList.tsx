@@ -19,11 +19,10 @@ export const CollectionList: FC<CollectionListProps> = ({ collections }) => {
         let priceWishlisted = 0
 
         if (collection.items) {
-          itemsOwned = collection.items.length
-
           for (const item of collection.items) {
             if (item.collectionID === collection.id && item.status === "owned")
-              priceOwned = priceOwned + item.price
+              itemsOwned = itemsOwned + 1
+            priceOwned = priceOwned + item.price
           }
 
           itemsWishlisted = collection.items.filter((item) => {

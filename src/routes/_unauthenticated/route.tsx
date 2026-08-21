@@ -16,10 +16,8 @@ function RouteComponent() {
         credentials: "include"
       })
       const data: Response<Session> = await res.json()
-      if (!res.ok) throw new Error(data.message || "Internal server error.")
-
       if (res.status === 200 && data.data) navigate({ to: "/" })
-
+      if (!res.ok && res.status !== 401) throw new Error(data.message || "Internal server error.")
       return data
     }
   })

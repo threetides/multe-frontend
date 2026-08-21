@@ -19,8 +19,10 @@ function RouteComponent() {
         credentials: "include"
       })
       const data: Response<Session> = await res.json()
-      if (!res.ok) throw new Error(data.message || "Internal server error.")
-
+      if (!res.ok) {
+        navigate({ to: "/sign-in" })
+        throw new Error(data.message || "Internal server error.")
+      }
       if (res.status === 401 || !data.data) navigate({ to: "/sign-in" })
 
       return data

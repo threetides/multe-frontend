@@ -155,9 +155,7 @@ function RouteComponent() {
                         return (
                           <>
                             {item.custom[cf.key] as string} {cf.unit.length > 0 ? cf.unit : null}{" "}
-                            {data.collection.items &&
-                              index <= data.collection.items?.length &&
-                              "· "}
+                            {index < Object.entries(item.custom).length - 1 && " · "}
                           </>
                         )
                       })}

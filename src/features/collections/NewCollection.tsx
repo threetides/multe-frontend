@@ -69,6 +69,8 @@ export const NewCollection: FC = () => {
         body: JSON.stringify(col)
       })
       const data: Response<string> = await res.json()
+      if (!res.ok)
+        throw new Error(data.message || "Failed to create the collection. Please try again.")
       if (res.status === 201) {
         await navigate({ to: "/collection/$collectionID", params: { collectionID: data.data } })
         sessionStorage.removeItem("newCollection")

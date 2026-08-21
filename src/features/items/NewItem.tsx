@@ -1,7 +1,7 @@
 import { Field, FieldContent, FieldError, FieldLabel, FieldTitle } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { useEffect, type FC } from "react"
+import { type FC } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { itemSchema, type ItemSchemaType } from "@/features/items/validation"
@@ -47,10 +47,6 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
     setValue
   })
 
-  useEffect(() => {
-    if (errors) console.log(errors)
-  }, [errors])
-
   const navigate = useNavigate()
 
   const { data: collection } = useQuery({
@@ -63,6 +59,7 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
         }
       )
       const data: Response<Collection & { collectionFields: CollectionField[] }> = await res.json()
+      if (!res.ok) throw new Error(data.message || "Failed to fetch items.")
       setValue("collectionID", data.data.id)
       return data.data
     }
@@ -79,6 +76,8 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
           dateBought: item.dateBought ? new Date(item.dateBought).toISOString() : undefined
         })
       })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message || "Failed to create the item. Please try again.")
       if (res.status === 201) {
         queryClient.invalidateQueries({ queryKey: [`getItemsPerCollection-${collectionID}`] })
         await navigate({ to: "/collection/$collectionID", params: { collectionID } })
@@ -164,6 +163,7 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
             type={collectionField.type === "number" ? "number" : "text"}
             step="any"
             maxLength={255}
+            onWheel={(e) => e.currentTarget.blur()}
             {...register(
               `custom.${collectionField.key}`,
               collectionField.type === "number"
@@ -171,9 +171,9 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
                 : {}
             )}
           />
-          {errors.custom?.[collectionField.label] && (
+          {errors.custom?.[collectionField.key] && (
             <FieldError className="text-xs">
-              {errors.custom[collectionField.label]?.message}
+              {errors.custom[collectionField.key]?.message}
             </FieldError>
           )}
         </Field>

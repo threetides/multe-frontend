@@ -29,6 +29,7 @@ function RouteComponent() {
         }
       )
       const data: Response<Collection> = await res.json()
+      if (!res.ok) throw new Error(data.message || "Failed to get collection.")
 
       const collection = data.data
 
@@ -168,13 +169,13 @@ function RouteComponent() {
                     </div>
                     <div className="flex justify-between">
                       <div className="text-primary-foreground text-nowrap text-ellipsis">
-                        {item.status === "owned" ? (
-                          <ItemDescription>{item.price} kr</ItemDescription>
-                        ) : (
-                          <ItemDescription className="text-primary">
-                            ~{item.price} kr
-                          </ItemDescription>
-                        )}
+                        {item.status === "owned"
+                          ? item.price && <ItemDescription>{item.price} kr</ItemDescription>
+                          : item.price && (
+                              <ItemDescription className="text-primary">
+                                ~{item.price} kr
+                              </ItemDescription>
+                            )}
                       </div>
                       <ItemDescription className="bg-primary/5 border border-primary/20 rounded-full pl-2 pr-2 pt-1 pb-1 text-xs text-primary">
                         Wish

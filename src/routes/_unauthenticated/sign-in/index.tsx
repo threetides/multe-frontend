@@ -8,7 +8,7 @@ export const Route = createFileRoute("/_unauthenticated/sign-in/")({
 function RouteComponent() {
   return (
     <>
-      <a href={`${import.meta.env.VITE_BACKEND_URL}/api/auth/google/login`}>
+      <a href={`${import.meta.env.VITE_BACKEND_URL}/api/auth/google/sign-in`}>
         <Button variant="outline">Sign in with Google</Button>
       </a>
     </>

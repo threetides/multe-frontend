@@ -26,5 +26,5 @@ function RouteComponent() {
 
   if (error) return "An error has occurred: " + error.message
 
-  return <main className="p-4 pb-20 overflow-hidden h-full">{!isPending && <Outlet />}</main>
+  return <main className="p-4 pb-20 overflow-auto h-full">{!isPending && <Outlet />}</main>
 }

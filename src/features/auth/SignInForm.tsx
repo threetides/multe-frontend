@@ -68,12 +68,12 @@ export const SignInForm: FC = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 h-full">
-      <div className="flex items-center gap-2 fixed">
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-2">
         <img src={cloudberry} alt="multe logo" className="h-6" />
         <h1 className="text-2xl">Sign in to multe</h1>
       </div>
-      <div className="flex flex-col justify-center h-full gap-4">
+      <div className="flex flex-col justify-center gap-4 pt-[25%]">
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <Field>
             <FieldLabel>Email</FieldLabel>

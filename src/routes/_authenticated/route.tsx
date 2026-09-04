@@ -34,7 +34,7 @@ function RouteComponent() {
   return (
     <>
       <TopbarMobile />
-      <main className="p-4 pb-20 overflow-hidden">{!isPending && <Outlet />}</main>
+      <main className="p-4 pb-20 overflow-auto">{!isPending && <Outlet />}</main>
       <BottombarMobile />
     </>
   )

@@ -134,9 +134,11 @@ export const TopbarMobile: FC = () => {
                   {errors.currency && <FieldError>{errors.currency.message}</FieldError>}
                 </Field>
               </div>
-              <DrawerFooter>
-                <Button type="submit">Save</Button>
-                <DrawerClose render={<Button variant="outline" />}>Cancel</DrawerClose>
+              <DrawerFooter className="gap-4">
+                <div className="flex flex-col gap-2">
+                  <Button type="submit">Save</Button>
+                  <DrawerClose render={<Button variant="outline" />}>Cancel</DrawerClose>
+                </div>
                 <Separator />
                 <Button variant="outline" onClick={() => signOutMutation.mutate()}>
                   Sign out

@@ -2,7 +2,7 @@ import { type FC } from "react"
 import logodark from "@/assets/logo-dark.svg"
 import { Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Link } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
 import {
   Drawer,
   DrawerClose,
@@ -25,6 +25,10 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { settingsSchema, type SettingsSchemaType } from "@/features/navigation/validation"
+import { Separator } from "@/components/ui/separator"
+import { useMutation } from "@tanstack/react-query"
+import type { Response } from "@/shared/types"
+import { toast } from "sonner"
 
 type Currency = {
   label: string
@@ -45,6 +49,33 @@ export const TopbarMobile: FC = () => {
   const onSubmit = (data: SettingsSchemaType) => {
     console.log(data)
   }
+
+  const navigate = useNavigate()
+
+  const signOutMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/sign-out`, {
+        method: "POST",
+        credentials: "include"
+      })
+      const data: Response<unknown> = await response.json()
+      if (!response.ok) throw new Error(data.message || "Failed to sign out")
+    },
+    onError: (error) => {
+      toast.error("An error occured", {
+        id: "signOutError",
+        description: error.message,
+        position: "top-center"
+      })
+    },
+    onSuccess: () => {
+      navigate({ to: "/sign-in" })
+      toast.success("Signed out", {
+        id: "signedOut",
+        position: "top-center"
+      })
+    }
+  })
 
   return (
     <nav className="p-4 flex flex-col gap-2 items-start">
@@ -100,14 +131,16 @@ export const TopbarMobile: FC = () => {
                       </Combobox>
                     )}
                   />
-                  {errors.currency && (
-                    <FieldError className="text-xs">{errors.currency.message}</FieldError>
-                  )}
+                  {errors.currency && <FieldError>{errors.currency.message}</FieldError>}
                 </Field>
               </div>
               <DrawerFooter>
                 <Button type="submit">Save</Button>
                 <DrawerClose render={<Button variant="outline" />}>Cancel</DrawerClose>
+                <Separator />
+                <Button variant="outline" onClick={() => signOutMutation.mutate()}>
+                  Sign out
+                </Button>
               </DrawerFooter>
             </form>
           </DrawerContent>

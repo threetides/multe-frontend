@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { SignInForm } from "@/features/auth/SignInForm"
 import { createFileRoute } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_unauthenticated/sign-in/")({
@@ -6,13 +6,5 @@ export const Route = createFileRoute("/_unauthenticated/sign-in/")({
 })
 
 function RouteComponent() {
-  return (
-    <>
-      <a
-        href={`${import.meta.env.VITE_BACKEND_URL}/api/auth/google/sign-in?return_error=/sign-in&return_success=/`}
-      >
-        <Button variant="outline">Sign in with Google</Button>
-      </a>
-    </>
-  )
+  return <SignInForm />
 }

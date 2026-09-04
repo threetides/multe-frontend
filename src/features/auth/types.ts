@@ -1,0 +1,1 @@
+export type ErrorCodes = "local_email_not_verified"

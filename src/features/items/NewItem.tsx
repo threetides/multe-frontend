@@ -10,7 +10,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import type { Collection, Response } from "@/shared/types"
 import { Spinner } from "@/components/ui/spinner"
 import { useNavigate } from "@tanstack/react-router"
-import { toast } from "@/components/ui/toast"
+import { toast } from "sonner"
 import { Separator } from "@/components/ui/separator"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { queryClient } from "@/main"
@@ -85,10 +85,10 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
       }
     },
     onError: (error) => {
-      toast.add({
-        title: "An error occured",
+      toast.error("An error occured", {
+        id: "newItemError",
         description: error.message,
-        type: "error"
+        position: "top-center"
       })
     }
   })
@@ -102,7 +102,7 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
       <Field>
         <FieldLabel>Name</FieldLabel>
         <Input placeholder="e.g. Dumbells" {...register("name")} maxLength={255} />
-        {errors.name && <FieldError className="text-xs">{errors.name.message}</FieldError>}
+        {errors.name && <FieldError>{errors.name.message}</FieldError>}
       </Field>
       <Field>
         <FieldLabel>Status</FieldLabel>
@@ -135,7 +135,7 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
             </RadioGroup>
           )}
         />
-        {errors.status && <FieldError className="text-xs">{errors.status.message}</FieldError>}
+        {errors.status && <FieldError>{errors.status.message}</FieldError>}
       </Field>
       <Field>
         <FieldLabel>Price</FieldLabel>
@@ -148,7 +148,7 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
             setValueAs: (value) => (value === "" ? undefined : Number(value))
           })}
         />
-        {errors.price && <FieldError className="text-xs">{errors.price.message}</FieldError>}
+        {errors.price && <FieldError>{errors.price.message}</FieldError>}
       </Field>
       {watch("status") === "owned" && <></>}
       <Separator />
@@ -172,9 +172,7 @@ export const NewItem: FC<NewItemProps> = ({ collectionID }) => {
             )}
           />
           {errors.custom?.[collectionField.key] && (
-            <FieldError className="text-xs">
-              {errors.custom[collectionField.key]?.message}
-            </FieldError>
+            <FieldError>{errors.custom[collectionField.key]?.message}</FieldError>
           )}
         </Field>
       ))}

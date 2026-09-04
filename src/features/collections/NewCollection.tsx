@@ -28,7 +28,7 @@ import { useMutation } from "@tanstack/react-query"
 import type { Response } from "@/shared/types"
 import { Spinner } from "@/components/ui/spinner"
 import { useNavigate } from "@tanstack/react-router"
-import { toast } from "@/components/ui/toast"
+import { toast } from "sonner"
 
 type Emoji = {
   label: string
@@ -77,10 +77,10 @@ export const NewCollection: FC = () => {
       }
     },
     onError: (error) => {
-      toast.add({
-        title: "An error occured",
+      toast.error("An error occured", {
+        id: "newItemError",
         description: error.message,
-        type: "error"
+        position: "top-center"
       })
     }
   })
@@ -99,7 +99,7 @@ export const NewCollection: FC = () => {
       <Field>
         <FieldLabel>Name</FieldLabel>
         <Input placeholder="e.g. Vinyl records" {...register("name")} maxLength={255} />
-        {errors.name && <FieldError className="text-xs">{errors.name.message}</FieldError>}
+        {errors.name && <FieldError>{errors.name.message}</FieldError>}
       </Field>
       <Field>
         <FieldLabel>Icon</FieldLabel>
@@ -133,7 +133,7 @@ export const NewCollection: FC = () => {
             </Combobox>
           )}
         />
-        {errors.emoji && <FieldError className="text-xs">{errors.emoji.message}</FieldError>}
+        {errors.emoji && <FieldError>{errors.emoji.message}</FieldError>}
       </Field>
       <Field>
         <FieldLabel>Custom fields</FieldLabel>
@@ -192,9 +192,7 @@ export const NewCollection: FC = () => {
                 </Button>
               </div>
               {errors.collectionFields?.[index]?.label && (
-                <FieldError className="text-xs">
-                  {errors.collectionFields?.[index]?.label.message}
-                </FieldError>
+                <FieldError>{errors.collectionFields?.[index]?.label.message}</FieldError>
               )}
             </div>
           )

@@ -1,11 +1,47 @@
 <!doctype html>
-<html lang="en" class="dark h-dvh">
+<html lang="en" class="h-full bg-background text-foreground scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Multe</title>
+    <meta
+      name="description"
+      content="Keep track of your collections, from wishlist to owned. Made in Norway."
+    />
+    <link rel="canonical" href="https://multe.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://multe.app/" />
+    <meta property="og:title" content="Multe" />
+    <meta property="og:image" content="https://multe.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Multe: Keep track of your collections, from wishlist to owned."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="og:description"
+      content="Keep track of your collections, from wishlist to owned. Made in Norway."
+    />
+    <script>
+      const theme = localStorage.getItem("theme")
+      if (theme) {
+        if (
+          theme === "dark" ||
+          (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        )
+          document.documentElement.classList.add("dark")
+      } else {
+        document.documentElement.classList.toggle(
+          "dark",
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        )
+      }
+    </script>
   </head>
+
   <body class="h-full">
     <div id="root" class="h-full"></div>
     <script type="module" src="/src/main.tsx"></script>

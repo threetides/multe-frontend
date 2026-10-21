@@ -1,53 +1,47 @@
 {
-  "name": "multe_frontend",
+  "name": "multe-frontend",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "build": "bun run check && vite build",
-    "preview": "vite preview",
-    "fmt": "oxfmt",
-    "lint": "oxlint --deny-warnings",
-    "type-check": "tsc --noEmit --pretty",
-    "check": "bun run fmt && bun run lint && bun run type-check"
+    "dev": "vp dev",
+    "build": "tsc -b && vp build",
+    "lint": "vp lint",
+    "preview": "vp preview",
+    "prepare": "vp config"
   },
   "dependencies": {
-    "@base-ui/react": "^1.7.0",
-    "@fontsource-variable/geist": "^5.3.0",
-    "@fontsource-variable/inter": "^5.3.0",
-    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
-    "@hookform/resolvers": "^5.9.1",
-    "@tailwindcss/vite": "^4.3.3",
-    "@tanstack/react-query": "^5.101.4",
-    "@tanstack/react-router": "^1.170.29",
+    "@base-ui/react": "^1.9.0",
+    "@fontsource-variable/figtree": "^5.3.0",
     "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "date-fns": "^4.4.0",
-    "jotai": "^2.20.2",
-    "lucide-react": "^1.31.0",
-    "next-themes": "^0.4.6",
-    "react": "^19.2.8",
-    "react-day-picker": "^10.0.1",
-    "react-dom": "^19.2.8",
-    "react-hook-form": "^7.85.0",
-    "react-hook-form-persist": "^3.0.0",
-    "shadcn": "^4.18.0",
-    "sonner": "^2.0.8",
-    "tailwind-merge": "^3.6.0",
-    "tailwindcss": "^4.3.3",
-    "tw-animate-css": "^1.4.0",
-    "zod": "^4.4.3"
+    "cn": "^0.5.0",
+    "lottie-react": "^3.1.2",
+    "lucide-react": "^1.60.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "shadcn": "^4.22.1",
+    "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {
-    "@tanstack/router-plugin": "^1.168.32",
-    "@types/node": "^24.13.3",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
-    "@vitejs/plugin-react": "^6.0.5",
-    "oxfmt": "^0.60.0",
-    "oxlint": "^1.78.0",
-    "typescript": "^7.0.2",
-    "vite": "^8.2.1"
+    "@babel/core": "^8.0.7",
+    "@rolldown/plugin-babel": "^0.2.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/babel__core": "^7.20.5",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~7.0.2",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.14.0",
+      "onFail": "download"
+    }
   }
 }
